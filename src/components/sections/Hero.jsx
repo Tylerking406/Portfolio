@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { personal } from "../../data/portfolio";
-import { Mail, MapPin, ArrowDown, ExternalLink } from "lucide-react";
+import { Mail, MapPin, ArrowDown, ExternalLink, Download } from "lucide-react";
 import HeroCanvas from "./HeroCanvas";
 
 const ROLES = [
@@ -163,6 +163,25 @@ export default function Hero() {
             <button className="btn-secondary" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
               Get in touch
             </button>
+            <a
+              href="/Arinao_Ndou_CV.pdf"
+              download="Arinao_Ndou_CV.pdf"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: "7px",
+                fontFamily: "'Space Mono', monospace", fontSize: "0.72rem",
+                letterSpacing: "0.1em", textTransform: "uppercase",
+                color: "var(--text-muted)", textDecoration: "none",
+                padding: "11px 20px",
+                border: "1px solid var(--border)",
+                transition: "all 0.2s ease",
+                clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = "var(--accent-gold)"; e.currentTarget.style.borderColor = "rgba(255,184,0,0.4)"; }}
+              onMouseLeave={e => { e.currentTarget.style.color = "var(--text-muted)"; e.currentTarget.style.borderColor = "var(--border)"; }}
+            >
+              <Download size={13} />
+              CV
+            </a>
           </div>
 
           {/* Social row */}

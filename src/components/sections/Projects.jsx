@@ -1,6 +1,25 @@
 import { useScrollReveal } from "../../hooks/useScrollReveal";
+import { useCountUp } from "../../hooks/useCountUp";
+import { useCardTilt } from "../../hooks/useCardTilt";
 import { featuredProjects, projects } from "../../data/portfolio";
 import { GitBranch as Github, ExternalLink, ArrowRight, TrendingUp } from "lucide-react";
+
+function AnimatedStat({ value, label, isVisible }) {
+  const numericValue = parseFloat(String(value).replace(/[^0-9.]/g, ""));
+  const suffix = String(value).replace(/[0-9. ]/g, "");
+  const count = useCountUp(numericValue, 1800, isVisible);
+  const display = Number.isInteger(numericValue) ? Math.round(count) : count.toFixed(1);
+  return (
+    <div>
+      <p className="font-display" style={{ fontSize: "20px", fontWeight: 800, color: "var(--accent-gold)", letterSpacing: "-0.02em" }}>
+        {display}{suffix}
+      </p>
+      <p className="font-mono" style={{ fontSize: "0.6rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "2px" }}>
+        {label}
+      </p>
+    </div>
+  );
+}
 
 const STATUS_CONFIG = {
   live: { label: "Live", color: "#00ff88", bg: "rgba(0,255,136,0.08)", border: "rgba(0,255,136,0.25)" },
@@ -87,14 +106,7 @@ function FeaturedCard({ project, index, isVisible }) {
               </span>
             </div>
             {project.stats.map((s) => (
-              <div key={s.label}>
-                <p className="font-display" style={{ fontSize: "20px", fontWeight: 800, color: "var(--accent-gold)", letterSpacing: "-0.02em" }}>
-                  {s.value}
-                </p>
-                <p className="font-mono" style={{ fontSize: "0.6rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "2px" }}>
-                  {s.label}
-                </p>
-              </div>
+              <AnimatedStat key={s.label} value={s.value} label={s.label} isVisible={isVisible} />
             ))}
           </div>
         )}
@@ -139,6 +151,7 @@ function FeaturedCard({ project, index, isVisible }) {
 function ProjectCard({ project, index, isVisible }) {
   const status = STATUS_CONFIG[project.status];
   const accent = ACCENT[project.accent];
+  const { ref: tiltRef, onMouseMove, onMouseLeave } = useCardTilt(6);
 
   return (
     <div style={{
@@ -146,10 +159,13 @@ function ProjectCard({ project, index, isVisible }) {
       transform: isVisible ? "translateY(0)" : "translateY(20px)",
       transition: `all 0.6s ease ${index * 0.08}s`,
     }}>
-      <div className="card-hover" style={{
+      <div ref={tiltRef} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
+        style={{
         background: "var(--bg-card)", border: `1px solid ${accent.border}`,
         borderRadius: "4px", padding: "24px", height: "100%",
         display: "flex", flexDirection: "column", position: "relative", overflow: "hidden",
+        transition: "transform 0.15s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+        willChange: "transform",
       }}>
         <div style={{
           position: "absolute", top: 0, right: 0, width: "150px", height: "150px",
