@@ -1,5 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "portfolio",
-  "pages_build_output_dir": "dist"
+  "compatibility_date": "2026-05-17",
+  "assets": {
+    "directory": "./dist"
+  }
 }
