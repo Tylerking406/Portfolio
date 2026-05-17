@@ -15,7 +15,7 @@ export const about = `I'm a full-stack software engineer based in Cape Town, wit
 
 My career so far has taken me from fintech internships and a financial technology analyst role to production-level engineering at Digital Outsource Services, where I've shipped payment systems, containerised applications, and migrated entire component libraries across the stack.
 
-I care deeply about clean code, thoughtful architecture, and continuous delivery. Outside of work I'm building an AI-powered tutoring app and always looking for the next interesting engineering challenge.`;
+I care deeply about clean code, thoughtful architecture, and continuous delivery. Outside of work I run Innoverxia — a small software agency — and I'm building CVibe, a free, open-source CV maker so anyone can put their best foot forward without paying a cent.`;
 
 export const experience = [
   {
@@ -102,12 +102,12 @@ export const skills = {
     { name: "JavaScript / TypeScript", level: 82 },
     { name: "Python", level: 75 },
     { name: "SQL", level: 85 },
-    { name: "C / C++", level: 65 },
+    { name: "Kotlin", level: 65 },
   ],
-  frontend: ["React.js", "React Native", "Vue.js", "Tailwind CSS", "Material-UI", "DevExpress"],
-  backend: [".NET Core", "Node.js", "FastAPI", "REST APIs", "Microservices", "MVC"],
-  data: ["Microsoft SQL Server", "MySQL", "Firebase", "LangChain"],
-  devops: ["Docker", "Kubernetes", "CI/CD Pipelines", "Git", "Azure DevOps"],
+  frontend: ["React.js", "React Native", "Vue.js", "TypeScript", "Tailwind CSS", "Material-UI", "DevExpress"],
+  backend: [".NET Core", "Spring Boot", "Node.js", "FastAPI", "REST APIs", "Microservices", "MVC", "QuestPDF"],
+  data: ["PostgreSQL", "Microsoft SQL Server", "MySQL", "Firebase / Firestore", "Supabase"],
+  devops: ["Docker", "Kubernetes", "CI/CD Pipelines", "Git", "Azure DevOps", "Cloudflare Pages", "Railway"],
   concepts: [
     "Microservices Architecture",
     "Clean Architecture",
@@ -115,69 +115,177 @@ export const skills = {
     "Data Structures & Algorithms",
     "Backend Optimisation",
     "Responsive UI Design",
-    "Code Refactoring",
+    "JWT Auth & Role-Based Access",
+    "PDF Generation",
+    "Real-time Databases",
   ],
 };
 
+// Featured projects — shown as large hero cards
+export const featuredProjects = [
+  {
+    id: "babina",
+    title: "Babina Travel",
+    subtitle: "Production · Client Project",
+    description:
+      "A high-traffic travel and transportation website built for a real client and serving a global audience. Running 67k monthly visits with top audiences in France, the US, the Netherlands, and the UK.",
+    stats: [
+      { label: "Monthly Visits", value: "67k+" },
+      { label: "Monthly Requests", value: "130k+" },
+      { label: "Bandwidth / Month", value: "145 MB" },
+      { label: "Top Markets", value: "FR · US · NL · UK" },
+    ],
+    stack: ["React", "Cloudflare", "Firebase"],
+    status: "live",
+    type: "Client Project · Production",
+    accent: "gold",
+    links: {
+      live: "https://babina.co.za",
+      github: "https://github.com/Tylerking406/cvmaker",
+    },
+  },
+  {
+    id: "myadvisor",
+    title: "MyAdvisor",
+    subtitle: "Final Year Capstone · Distinction",
+    description:
+      "A full-stack academic platform enabling students and advisors to schedule meetings, register for courses, receive AI-powered major-change advice, and communicate via role-based dashboards. Awarded a distinction.",
+    longDescription:
+      "Built with Spring Boot and React, MyAdvisor supports multiple user roles — students, advisors, and administrators — each with their own dashboard and permissions. Features include real-time messaging, course registration flows, smart course advice, and a meeting scheduling system.",
+    stack: ["Spring Boot", "React", "Java", "PostgreSQL", "JWT Auth", "REST APIs"],
+    status: "complete",
+    type: "Full Stack · Academic",
+    accent: "cyan",
+    links: {
+      github: "https://github.com/Tylerking406/Capstone",
+    },
+  },
+];
+
+// All other projects — shown in a grid
 export const projects = [
+  {
+    id: "cvmaker",
+    title: "CVibe — CV Maker",
+    subtitle: "In Development · Open Source",
+    description:
+      "A free, open-source CV builder so anyone can create a professional CV without paying. Built with React + TypeScript, a .NET Core API, QuestPDF for generation, Supabase for auth and storage, and hosted on Cloudflare Pages.",
+    stack: ["React", "TypeScript", ".NET Core", "QuestPDF", "Supabase", "PostgreSQL", "Railway"],
+    status: "in-progress",
+    type: "Web App · Open Source",
+    accent: "cyan",
+    mission: "Free for everyone. Help people get jobs.",
+    links: {
+      live: "https://cvibe.arinao.dev",
+      github: "https://github.com/Tylerking406/cvmaker",
+    },
+  },
+  {
+    id: "innoverxia",
+    title: "Innoverxia",
+    subtitle: "Startup · Software Agency",
+    description:
+      "Co-founded a software agency that designs and builds websites and systems for clients, handles system maintenance, and delivers end-to-end digital solutions for small businesses.",
+    stack: ["React", "Firebase", "Web", "Client Work"],
+    status: "live",
+    type: "Startup · Agency",
+    accent: "gold",
+    links: {
+      live: "https://innoverxia.web.app",
+      github: "https://github.com/Tylerking406/innoverxia",
+    },
+  },
+  {
+    id: "employee-system",
+    title: "Employee Management System",
+    subtitle: "Backend · .NET Core",
+    description:
+      "A clean REST API for employee CRUD operations built with .NET Core, demonstrating clean controller architecture, data models, and backend best practices.",
+    stack: [".NET Core", "C#", "REST API", "CRUD"],
+    status: "complete",
+    type: "Backend · API",
+    accent: "cyan",
+    links: {
+      github: "https://github.com/Tylerking406/EmployeesSystem",
+    },
+  },
+  {
+    id: "alphabet-book",
+    title: "AlphabetBook",
+    subtitle: "Android · Kotlin",
+    description:
+      "An educational Android app built natively in Kotlin with Android Studio, designed to help young learners engage with the alphabet through an interactive mobile experience.",
+    stack: ["Kotlin", "Android Studio", "Mobile"],
+    status: "complete",
+    type: "Mobile · Android",
+    accent: "gold",
+    links: {
+      github: "https://github.com/Tylerking406/MDD1",
+    },
+  },
   {
     id: "ai-tutor",
     title: "AI Tutoring Platform",
     subtitle: "Mobile · In Development",
     description:
-      "An AI-powered tutoring mobile app that delivers intelligent, personalised academic assistance. Integrates Falcon AI with LangChain for contextual response generation, with a FastAPI backend and React Native frontend for cross-device reach.",
-    longDescription:
-      "Built to tackle the accessibility gap in quality tutoring, this app leverages large language models through LangChain to provide step-by-step explanations, quiz generation, and adaptive learning paths. The FastAPI backend handles model orchestration, session state, and a RESTful API layer consumed by the React Native client.",
-    stack: ["React Native", "FastAPI", "LangChain", "Falcon AI", "Python", "Cloud"],
+      "An AI-powered tutoring mobile app integrating Falcon AI with LangChain for intelligent, contextual response generation. FastAPI backend with a React Native frontend.",
+    stack: ["React Native", "FastAPI", "LangChain", "Falcon AI", "Python"],
     status: "in-progress",
     type: "Mobile App · AI",
-    accent: "cyan",
-    links: { github: "https://github.com/Tylerking406" },
-  },
-  {
-    id: "guest-booking",
-    title: "Guest Booking Application",
-    subtitle: "Web · Live",
-    description:
-      "A feature-rich React web app with a full guest booking system, randomised quotes, voice notes synced to images, and a photo/video gallery — all powered by Firebase real-time database with instant notifications.",
-    longDescription:
-      "Built for seamless guest engagement, the app features real-time message storage in Firebase, instant push notifications, and a polished media gallery. Voice memos are synchronised with corresponding images for an immersive browsing experience.",
-    stack: ["React", "Firebase", "JavaScript", "CSS"],
-    status: "live",
-    type: "Web App · Full Stack",
-    accent: "gold",
-    links: { github: "https://github.com/Tylerking406" },
-  },
-  {
-    id: "basketball-ai",
-    title: "Basketball Shot Predictor",
-    subtitle: "ML · Research",
-    description:
-      "A machine learning algorithm that predicts basketball shot outcomes from real-time sensor data. Trained on motion tracking datasets using feature engineering and classification models.",
-    stack: ["Python", "Machine Learning", "Sensor Data", "Scikit-learn"],
-    status: "complete",
-    type: "ML · Research",
     accent: "purple",
-    links: { github: "https://github.com/Tylerking406" },
+    links: {
+      github: "https://github.com/Tylerking406",
+    },
   },
   {
-    id: "digit-recognition",
+    id: "birthday-wish",
+    title: "BirthdayWish",
+    subtitle: "Web · React + Firebase",
+    description:
+      "A personalised birthday experience website built overnight — featuring videos, photos, and a guest message board powered by Firebase Firestore with real-time updates.",
+    stack: ["React", "Firebase", "Firestore", "CSS"],
+    status: "live",
+    type: "Web App · Creative",
+    accent: "gold",
+    links: {
+      github: "https://github.com/Tylerking406/BirthDayWish",
+    },
+  },
+  {
+    id: "digit-cnn",
     title: "CNN Digit Recognition",
     subtitle: "Deep Learning · 98.7% Accuracy",
     description:
-      "A Convolutional Neural Network achieving 98.7% accuracy classifying handwritten digits from the MNIST dataset. Built from scratch with custom architecture tuning and augmentation strategies.",
-    stack: ["Python", "TensorFlow / Keras", "CNNs", "MNIST"],
+      "A Convolutional Neural Network trained on MNIST achieving 98.7% accuracy, with custom architecture tuning and augmentation strategies.",
+    stack: ["Python", "TensorFlow", "Keras", "CNNs"],
     status: "complete",
     type: "Deep Learning · CV",
+    accent: "purple",
+    links: {
+      github: "https://github.com/Tylerking406/Artificial-Neural-Networks",
+    },
+  },
+  {
+    id: "stm-assembly",
+    title: "STM32 LED Control",
+    subtitle: "Embedded · ARM Assembly",
+    description:
+      "Low-level LED control system for an STM32 microcontroller written in ARM Assembly, covering register manipulation, GPIO config, and hardware timing.",
+    stack: ["ARM Assembly", "STM32", "Embedded Systems", "C"],
+    status: "complete",
+    type: "Embedded · Hardware",
     accent: "cyan",
-    links: { github: "https://github.com/Tylerking406" },
+    links: {
+      github: "https://github.com/Tylerking406/Tylerking406-KRMTAK001_NDXARI004_EEE3096S",
+    },
   },
 ];
 
 export const achievements = [
   "Promoted to permanent Junior Software Engineer (Full Stack) at Digital Outsource Services — March 2026.",
-  "Distinction (77%) in Software Engineering at UCT.",
-  "Built scalable financial workflows during a fintech internship at Tata-iMali.",
+  "Built Babina Travel — a client site serving 67k+ monthly visitors across France, US, Netherlands & UK.",
+  "Distinction (77%) in Software Engineering (CSC3002F) at UCT.",
+  "Co-founded Innoverxia — a software agency building digital products for clients.",
   "Tutored 50+ university students — average grade improvement of 20%.",
   "Delivered a critical production payment system ticket within days of being assigned.",
 ];
