@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { personal } from "../../data/portfolio";
-import { GitBranch, ExternalLink, Mail, MapPin, ArrowDown } from "lucide-react";
+import { Mail, MapPin, ArrowDown, ExternalLink } from "lucide-react";
+import HeroCanvas from "./HeroCanvas";
 
 const ROLES = [
   "Full-Stack Engineer",
@@ -16,23 +17,20 @@ export default function Hero() {
   const [typing, setTyping] = useState(true);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const current = ROLES[roleIndex];
     let timeout;
-
     if (typing) {
       if (displayed.length < current.length) {
-        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60);
+        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 62);
       } else {
-        timeout = setTimeout(() => setTyping(false), 2000);
+        timeout = setTimeout(() => setTyping(false), 2200);
       }
     } else {
       if (displayed.length > 0) {
-        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 35);
+        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 32);
       } else {
         setRoleIndex((i) => (i + 1) % ROLES.length);
         setTyping(true);
@@ -40,10 +38,6 @@ export default function Hero() {
     }
     return () => clearTimeout(timeout);
   }, [displayed, typing, roleIndex]);
-
-  const scrollToAbout = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section
@@ -58,287 +52,178 @@ export default function Hero() {
         paddingTop: "64px",
       }}
     >
-      {/* Radial glow backdrop */}
-      <div
-        style={{
-          position: "absolute",
-          top: "20%",
-          right: "-10%",
-          width: "600px",
-          height: "600px",
-          background:
-            "radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: "10%",
-          left: "-5%",
-          width: "400px",
-          height: "400px",
-          background:
-            "radial-gradient(circle, rgba(255,184,0,0.04) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
+      {/* Background glows */}
+      <div style={{
+        position: "absolute", top: "15%", right: "5%",
+        width: "700px", height: "700px",
+        background: "radial-gradient(circle, rgba(0,229,255,0.04) 0%, transparent 70%)",
+        pointerEvents: "none",
+      }} />
+      <div style={{
+        position: "absolute", bottom: "10%", left: "-5%",
+        width: "400px", height: "400px",
+        background: "radial-gradient(circle, rgba(255,184,0,0.03) 0%, transparent 70%)",
+        pointerEvents: "none",
+      }} />
 
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "0 24px",
-          width: "100%",
-        }}
-      >
-        <div style={{ maxWidth: "800px" }}>
+      <div style={{
+        maxWidth: "1200px", margin: "0 auto",
+        padding: "0 24px", width: "100%",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "40px",
+        alignItems: "center",
+      }} className="hero-grid">
+
+        {/* LEFT — Text content */}
+        <div>
           {/* Status badge */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              marginBottom: "32px",
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(10px)",
-              transition: "all 0.6s ease 0.1s",
-            }}
-          >
-            <span
-              style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                background: "#00ff88",
-                display: "inline-block",
-                animation: "glowPulse 2s ease-in-out infinite",
-                boxShadow: "0 0 8px #00ff88",
-              }}
-            />
-            <span
-              className="font-mono"
-              style={{
-                fontSize: "0.68rem",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "var(--text-secondary)",
-              }}
-            >
-              {personal.availability} · {personal.location}
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: "8px",
+            marginBottom: "28px",
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(10px)",
+            transition: "all 0.6s ease 0.1s",
+          }}>
+            <span style={{
+              width: "7px", height: "7px", borderRadius: "50%",
+              background: "#00ff88", display: "inline-block",
+              boxShadow: "0 0 8px #00ff88",
+              animation: "glowPulse 2s ease-in-out infinite",
+            }} />
+            <span className="font-mono" style={{
+              fontSize: "0.65rem", letterSpacing: "0.15em",
+              textTransform: "uppercase", color: "var(--text-secondary)",
+            }}>
+              {personal.availability}
+            </span>
+            <span style={{ color: "var(--border-bright)" }}>·</span>
+            <span className="font-mono" style={{
+              fontSize: "0.65rem", letterSpacing: "0.1em",
+              color: "var(--text-muted)",
+              display: "flex", alignItems: "center", gap: "4px",
+            }}>
+              <MapPin size={10} /> {personal.location}
             </span>
           </div>
 
           {/* Name */}
-          <h1
-            className="font-display"
-            style={{
-              fontSize: "clamp(48px, 8vw, 88px)",
-              fontWeight: 800,
-              lineHeight: 0.95,
-              letterSpacing: "-0.02em",
-              marginBottom: "8px",
-              color: "var(--text-primary)",
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.7s ease 0.2s",
-            }}
-          >
+          <h1 className="font-display" style={{
+            fontSize: "clamp(44px, 6.5vw, 80px)",
+            fontWeight: 800, lineHeight: 0.95,
+            letterSpacing: "-0.025em", marginBottom: "6px",
+            color: "var(--text-primary)",
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(20px)",
+            transition: "all 0.7s ease 0.2s",
+          }}>
             Arinao
           </h1>
-          <h1
-            className="font-display"
-            style={{
-              fontSize: "clamp(48px, 8vw, 88px)",
-              fontWeight: 800,
-              lineHeight: 0.95,
-              letterSpacing: "-0.02em",
-              marginBottom: "28px",
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(20px)",
-              transition: "all 0.7s ease 0.3s",
-            }}
-          >
+          <h1 className="font-display" style={{
+            fontSize: "clamp(44px, 6.5vw, 80px)",
+            fontWeight: 800, lineHeight: 0.95,
+            letterSpacing: "-0.025em", marginBottom: "24px",
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(20px)",
+            transition: "all 0.7s ease 0.3s",
+          }}>
             <span className="gradient-text-cyan">Ndou</span>
           </h1>
 
-          {/* Typewriter role */}
-          <div
-            style={{
-              height: "36px",
-              marginBottom: "24px",
-              opacity: mounted ? 1 : 0,
-              transition: "opacity 0.5s ease 0.5s",
-            }}
-          >
-            <span
-              className="font-mono"
-              style={{
-                fontSize: "clamp(14px, 2vw, 18px)",
-                color: "var(--accent-cyan)",
-                letterSpacing: "0.05em",
-              }}
-            >
+          {/* Typewriter */}
+          <div style={{ height: "32px", marginBottom: "20px", opacity: mounted ? 1 : 0, transition: "opacity 0.5s ease 0.5s" }}>
+            <span className="font-mono" style={{ fontSize: "clamp(12px, 1.6vw, 16px)", color: "var(--accent-cyan)", letterSpacing: "0.05em" }}>
               &gt; {displayed}
-              <span
-                style={{
-                  color: "var(--accent-gold)",
-                  animation: "blink 1s step-end infinite",
-                }}
-              >
-                _
-              </span>
+              <span style={{ color: "var(--accent-gold)", animation: "blink 1s step-end infinite" }}>_</span>
             </span>
           </div>
 
           {/* Tagline */}
-          <p
-            style={{
-              fontSize: "clamp(15px, 2vw, 18px)",
-              color: "var(--text-secondary)",
-              lineHeight: 1.7,
-              maxWidth: "520px",
-              marginBottom: "48px",
-              fontWeight: 300,
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(15px)",
-              transition: "all 0.7s ease 0.5s",
-            }}
-          >
+          <p style={{
+            fontSize: "clamp(14px, 1.5vw, 16px)",
+            color: "var(--text-secondary)", lineHeight: 1.75,
+            maxWidth: "460px", marginBottom: "36px", fontWeight: 300,
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(15px)",
+            transition: "all 0.7s ease 0.5s",
+          }}>
             {personal.tagline}
           </p>
 
           {/* CTAs */}
-          <div
-            style={{
-              display: "flex",
-              gap: "16px",
-              flexWrap: "wrap",
-              marginBottom: "56px",
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(15px)",
-              transition: "all 0.7s ease 0.65s",
-            }}
-          >
-            <button
-              className="btn-primary"
-              onClick={() =>
-                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
+          <div style={{
+            display: "flex", gap: "14px", flexWrap: "wrap", marginBottom: "40px",
+            opacity: mounted ? 1 : 0,
+            transform: mounted ? "translateY(0)" : "translateY(15px)",
+            transition: "all 0.7s ease 0.65s",
+          }}>
+            <button className="btn-primary" onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
               View Projects
             </button>
-            <button
-              className="btn-secondary"
-              onClick={() =>
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
+            <button className="btn-secondary" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
               Get in touch
             </button>
           </div>
 
-          {/* Social links */}
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              opacity: mounted ? 1 : 0,
-              transition: "opacity 0.5s ease 0.8s",
-            }}
-          >
+          {/* Social row */}
+          <div style={{
+            display: "flex", gap: "24px", alignItems: "center",
+            opacity: mounted ? 1 : 0, transition: "opacity 0.5s ease 0.8s",
+          }}>
             {[
-              { icon: GitBranch, href: personal.github, label: "GitHub" },
-              { icon: ExternalLink, href: personal.linkedin, label: "LinkedIn" },
-              { icon: Mail, href: `mailto:${personal.email}`, label: "Email" },
-            ].map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
+              { label: "GitHub", href: personal.github },
+              { label: "LinkedIn", href: personal.linkedin },
+              { label: "Email", href: `mailto:${personal.email}` },
+            ].map(({ label, href }) => (
+              <a key={label} href={href}
                 target={label !== "Email" ? "_blank" : undefined}
                 rel="noopener noreferrer"
-                aria-label={label}
+                className="font-mono"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  color: "var(--text-muted)",
-                  textDecoration: "none",
-                  transition: "color 0.2s ease, transform 0.2s ease",
+                  textDecoration: "none", fontSize: "0.65rem",
+                  letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: "var(--text-muted)", transition: "color 0.2s",
+                  display: "flex", alignItems: "center", gap: "5px",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = "var(--accent-cyan)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "var(--text-muted)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
+                onMouseEnter={e => e.currentTarget.style.color = "var(--accent-cyan)"}
+                onMouseLeave={e => e.currentTarget.style.color = "var(--text-muted)"}
               >
-                <Icon size={18} />
-                <span
-                  className="font-mono"
-                  style={{ fontSize: "0.65rem", letterSpacing: "0.1em" }}
-                >
-                  {label}
-                </span>
+                <ExternalLink size={11} />
+                {label}
               </a>
             ))}
           </div>
         </div>
+
+        {/* RIGHT — 3D canvas */}
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "center",
+          opacity: mounted ? 1 : 0,
+          transition: "opacity 1s ease 0.4s",
+        }}>
+          <HeroCanvas />
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <button
-        onClick={scrollToAbout}
+      <button onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
         style={{
-          position: "absolute",
-          bottom: "32px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          color: "var(--text-muted)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "8px",
+          position: "absolute", bottom: "28px", left: "50%",
+          transform: "translateX(-50%)", background: "none", border: "none",
+          cursor: "pointer", color: "var(--text-muted)",
+          display: "flex", flexDirection: "column", alignItems: "center", gap: "6px",
           animation: "fadeIn 1s ease 1.2s both",
-        }}
-        aria-label="Scroll down"
-      >
-        <span
-          className="font-mono"
-          style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase" }}
-        >
-          scroll
-        </span>
-        <ArrowDown size={14} style={{ animation: "fadeUp 1s ease-in-out infinite alternate" }} />
+        }}>
+        <span className="font-mono" style={{ fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>scroll</span>
+        <ArrowDown size={13} style={{ animation: "fadeUp 1.2s ease-in-out infinite alternate" }} />
       </button>
 
-      {/* Decorative corner element */}
-      <div
-        style={{
-          position: "absolute",
-          top: "80px",
-          right: "24px",
-          opacity: 0.15,
-        }}
-      >
-        <div
-          className="font-mono"
-          style={{
-            fontSize: "0.6rem",
-            letterSpacing: "0.15em",
-            color: "var(--accent-cyan)",
-            writingMode: "vertical-rl",
-            textOrientation: "mixed",
-          }}
-        >
-          ARINAO.DEV · FULL STACK ENGINEER · CAPE TOWN
-        </div>
-      </div>
+      <style>{`
+        @media (max-width: 900px) {
+          .hero-grid { grid-template-columns: 1fr !important; }
+          .hero-grid > div:last-child { display: none !important; }
+        }
+      `}</style>
     </section>
   );
 }
