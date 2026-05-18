@@ -11,7 +11,7 @@ export const personal = {
   availability: "Open to opportunities",
 };
 
-export const about = `I'm a full-stack software engineer based in Cape Town, with a BSc in Computer Science & Computer Engineering from UCT. I specialise in backend systems — C# .NET Core, microservices, and scalable APIs — while staying sharp on the frontend with React and Vue.
+export const about = `I'm a full-stack software engineer based in Cape Town, with a BSc in Computer Science & Computer Engineering from the University of Cape Town. I specialise in backend systems — C# .NET Core, microservices, and scalable APIs — while staying sharp on the frontend with React and Vue.
 
 My career so far has taken me from fintech internships and a financial technology analyst role to production-level engineering at Digital Outsource Services, where I've shipped payment systems, containerised applications, and migrated entire component libraries across the stack.
 
@@ -284,7 +284,7 @@ export const projects = [
 export const achievements = [
   "Promoted to permanent Junior Software Engineer (Full Stack) at Digital Outsource Services — March 2026.",
   "Built Babina Travel — a client site serving 67k+ monthly visitors across France, US, Netherlands & UK.",
-  "Distinction (77%) in Software Engineering (CSC3002F) at UCT.",
+  "Distinction (77%) in Software Engineering (CSC3002F) at the University of Cape Town.",
   "Co-founded Innoverxia — a software agency building digital products for clients.",
   "Tutored 50+ university students — average grade improvement of 20%.",
   "Delivered a critical production payment system ticket within days of being assigned.",
