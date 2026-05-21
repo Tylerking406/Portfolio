@@ -11,10 +11,10 @@ function AnimatedStat({ value, label, isVisible }) {
   const display = Number.isInteger(numericValue) ? Math.round(count) : count.toFixed(1);
   return (
     <div>
-      <p className="font-display" style={{ fontSize: "20px", fontWeight: 800, color: "var(--accent-gold)", letterSpacing: "-0.02em" }}>
+      <p className="font-display" style={{ fontSize: "18px", fontWeight: 800, color: "var(--accent-gold)", letterSpacing: "-0.02em" }}>
         {display}{suffix}
       </p>
-      <p className="font-mono" style={{ fontSize: "0.6rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "2px" }}>
+      <p className="font-mono" style={{ fontSize: "0.58rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "2px" }}>
         {label}
       </p>
     </div>
@@ -39,27 +39,24 @@ function FeaturedCard({ project, index, isVisible }) {
   const isBabina = project.id === "babina";
 
   return (
-    <div
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(28px)",
-        transition: `all 0.7s ease ${index * 0.15}s`,
-      }}
-    >
-      <div
-        className="card-hover"
-        style={{
-          background: "var(--bg-card)",
-          border: `1px solid ${accent.border}`,
-          borderRadius: "4px",
-          padding: "36px",
-          position: "relative",
-          overflow: "hidden",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+    <div style={{
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? "translateY(0)" : "translateY(28px)",
+      transition: `all 0.7s ease ${index * 0.15}s`,
+      minWidth: 0,
+    }}>
+      <div className="card-hover" style={{
+        background: "var(--bg-card)",
+        border: `1px solid ${accent.border}`,
+        borderRadius: "4px",
+        padding: "clamp(20px, 4vw, 36px)",
+        position: "relative",
+        overflow: "hidden",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        boxSizing: "border-box",
+      }}>
         {/* Ambient glow */}
         <div style={{
           position: "absolute", top: 0, right: 0,
@@ -69,39 +66,48 @@ function FeaturedCard({ project, index, isVisible }) {
         }} />
 
         {/* Type + status row */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-          <span className="font-mono" style={{ fontSize: "0.62rem", letterSpacing: "0.15em", textTransform: "uppercase", color: accent.color }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", gap: "8px", flexWrap: "wrap" }}>
+          <span className="font-mono" style={{ fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", color: accent.color }}>
             {project.type}
           </span>
           <span className="font-mono" style={{
-            fontSize: "0.6rem", padding: "4px 10px",
+            fontSize: "0.58rem", padding: "3px 8px",
             background: status.bg, border: `1px solid ${status.border}`,
             color: status.color, borderRadius: "2px", letterSpacing: "0.1em", textTransform: "uppercase",
+            whiteSpace: "nowrap",
           }}>
             {status.label}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className="font-display" style={{ fontSize: "clamp(22px, 3vw, 28px)", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "12px" }}>
+        <h3 className="font-display" style={{
+          fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 800,
+          letterSpacing: "-0.02em", marginBottom: "12px", lineHeight: 1.2,
+        }}>
           {project.title}
         </h3>
 
         {/* Description */}
-        <p style={{ fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: "24px", fontWeight: 300 }}>
+        <p style={{ fontSize: "clamp(13px, 1.5vw, 15px)", color: "var(--text-secondary)", lineHeight: 1.7, marginBottom: "20px", fontWeight: 300 }}>
           {project.description}
         </p>
 
         {/* Babina traffic stats */}
         {isBabina && project.stats && (
-          <div style={{
-            display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "12px", marginBottom: "24px",
-            padding: "20px", background: "rgba(255,184,0,0.04)",
-            border: "1px solid rgba(255,184,0,0.15)", borderRadius: "4px",
+          <div className="stats-grid" style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "12px",
+            marginBottom: "20px",
+            padding: "16px",
+            background: "rgba(255,184,0,0.04)",
+            border: "1px solid rgba(255,184,0,0.15)",
+            borderRadius: "4px",
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", gridColumn: "1/-1" }}>
               <TrendingUp size={12} color="var(--accent-gold)" />
-              <span className="font-mono" style={{ fontSize: "0.58rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent-gold)" }}>
+              <span className="font-mono" style={{ fontSize: "0.56rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent-gold)" }}>
                 Live Traffic — Last 30 Days
               </span>
             </div>
@@ -112,19 +118,19 @@ function FeaturedCard({ project, index, isVisible }) {
         )}
 
         {/* Stack */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "24px", marginTop: "auto" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "20px", marginTop: "auto" }}>
           {project.stack.map((tech) => (
-            <span key={tech} className="tag-pill" style={{ borderColor: accent.border, color: accent.color, background: accent.glow }}>
+            <span key={tech} className="tag-pill" style={{ borderColor: accent.border, color: accent.color, background: accent.glow, fontSize: "0.58rem" }}>
               {tech}
             </span>
           ))}
         </div>
 
         {/* Links */}
-        <div style={{ display: "flex", gap: "16px", paddingTop: "20px", borderTop: "1px solid var(--border)" }}>
+        <div style={{ display: "flex", gap: "16px", paddingTop: "16px", borderTop: "1px solid var(--border)", flexWrap: "wrap" }}>
           {project.links.live && (
             <a href={project.links.live} target="_blank" rel="noopener noreferrer"
-              style={{ display: "flex", alignItems: "center", gap: "6px", color: accent.color, textDecoration: "none", transition: "opacity 0.2s" }}
+              style={{ display: "flex", alignItems: "center", gap: "6px", color: accent.color, textDecoration: "none" }}
               onMouseEnter={e => e.currentTarget.style.opacity = "0.7"}
               onMouseLeave={e => e.currentTarget.style.opacity = "1"}
             >
@@ -158,59 +164,68 @@ function ProjectCard({ project, index, isVisible }) {
       opacity: isVisible ? 1 : 0,
       transform: isVisible ? "translateY(0)" : "translateY(20px)",
       transition: `all 0.6s ease ${index * 0.08}s`,
+      minWidth: 0,
     }}>
       <div ref={tiltRef} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
         style={{
-        background: "var(--bg-card)", border: `1px solid ${accent.border}`,
-        borderRadius: "4px", padding: "24px", height: "100%",
-        display: "flex", flexDirection: "column", position: "relative", overflow: "hidden",
-        transition: "transform 0.15s ease, border-color 0.3s ease, box-shadow 0.3s ease",
-        willChange: "transform",
-      }}>
+          background: "var(--bg-card)",
+          border: `1px solid ${accent.border}`,
+          borderRadius: "4px",
+          padding: "clamp(16px, 3vw, 24px)",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+          overflow: "hidden",
+          transition: "transform 0.15s ease, border-color 0.3s ease, box-shadow 0.3s ease",
+          willChange: "transform",
+          boxSizing: "border-box",
+        }}>
         <div style={{
           position: "absolute", top: 0, right: 0, width: "150px", height: "150px",
           background: `radial-gradient(circle at top right, ${accent.glow}, transparent 70%)`,
           pointerEvents: "none",
         }} />
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "12px" }}>
-          <span className="font-mono" style={{ fontSize: "0.58rem", letterSpacing: "0.15em", textTransform: "uppercase", color: accent.color }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "10px", gap: "8px" }}>
+          <span className="font-mono" style={{ fontSize: "0.56rem", letterSpacing: "0.12em", textTransform: "uppercase", color: accent.color, flex: 1, minWidth: 0 }}>
             {project.type}
           </span>
           <span className="font-mono" style={{
-            fontSize: "0.58rem", padding: "3px 8px",
+            fontSize: "0.56rem", padding: "3px 7px",
             background: status.bg, border: `1px solid ${status.border}`,
-            color: status.color, borderRadius: "2px", letterSpacing: "0.1em", textTransform: "uppercase",
+            color: status.color, borderRadius: "2px", letterSpacing: "0.08em",
+            textTransform: "uppercase", flexShrink: 0, whiteSpace: "nowrap",
           }}>{status.label}</span>
         </div>
 
-        <h3 className="font-display" style={{ fontSize: "17px", fontWeight: 700, marginBottom: "10px", letterSpacing: "-0.01em" }}>
+        <h3 className="font-display" style={{ fontSize: "clamp(15px, 2vw, 17px)", fontWeight: 700, marginBottom: "8px", letterSpacing: "-0.01em", lineHeight: 1.3 }}>
           {project.title}
         </h3>
 
         {project.mission && (
           <p className="font-mono" style={{
-            fontSize: "0.62rem", color: accent.color, letterSpacing: "0.05em",
-            marginBottom: "10px", fontStyle: "italic",
+            fontSize: "0.6rem", color: accent.color, letterSpacing: "0.05em",
+            marginBottom: "8px", fontStyle: "italic",
           }}>
             "{project.mission}"
           </p>
         )}
 
-        <p style={{ fontSize: "13px", color: "var(--text-secondary)", lineHeight: 1.65, flex: 1, marginBottom: "16px", fontWeight: 300 }}>
+        <p style={{ fontSize: "clamp(12px, 1.5vw, 13px)", color: "var(--text-secondary)", lineHeight: 1.65, flex: 1, marginBottom: "14px", fontWeight: 300 }}>
           {project.description}
         </p>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginBottom: "16px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginBottom: "14px" }}>
           {project.stack.map((tech) => (
             <span key={tech} className="tag-pill" style={{
-              fontSize: "0.58rem", borderColor: accent.border,
+              fontSize: "0.56rem", borderColor: accent.border,
               color: accent.color, background: accent.glow,
             }}>{tech}</span>
           ))}
         </div>
 
-        <div style={{ display: "flex", gap: "14px" }}>
+        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
           {project.links.live && (
             <a href={project.links.live} target="_blank" rel="noopener noreferrer"
               style={{ display: "flex", alignItems: "center", gap: "5px", color: accent.color, textDecoration: "none" }}
@@ -242,33 +257,33 @@ export default function Projects() {
   const { ref: gridRef, isVisible: gridVisible } = useScrollReveal();
 
   return (
-    <section id="projects" style={{ padding: "120px 24px", maxWidth: "1200px", margin: "0 auto" }}>
+    <section id="projects" style={{ padding: "80px 16px", maxWidth: "1200px", margin: "0 auto", boxSizing: "border-box" }}>
 
       {/* Header */}
       <div ref={featuredRef} style={{
-        marginBottom: "56px",
+        marginBottom: "40px",
         opacity: featuredVisible ? 1 : 0,
         transform: featuredVisible ? "translateY(0)" : "translateY(20px)",
         transition: "all 0.6s ease",
       }}>
         <span className="section-label"><span className="h-line" />03 / Projects</span>
-        <h2 className="font-display" style={{ fontSize: "clamp(32px, 5vw, 52px)", fontWeight: 800, marginTop: "12px", letterSpacing: "-0.02em" }}>
+        <h2 className="font-display" style={{ fontSize: "clamp(28px, 5vw, 52px)", fontWeight: 800, marginTop: "12px", letterSpacing: "-0.02em" }}>
           What I've Built
         </h2>
-        <p style={{ marginTop: "12px", fontSize: "15px", color: "var(--text-secondary)", fontWeight: 300 }}>
+        <p style={{ marginTop: "10px", fontSize: "14px", color: "var(--text-secondary)", fontWeight: 300 }}>
           12 repositories · production client work · open-source tools · ML research
         </p>
       </div>
 
-      {/* Featured projects — 2 col hero cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px", marginBottom: "24px" }} className="featured-grid">
+      {/* Featured — stacks to 1 col on mobile */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px", marginBottom: "20px" }} className="featured-grid">
         {featuredProjects.map((p, i) => (
           <FeaturedCard key={p.id} project={p} index={i} isVisible={featuredVisible} />
         ))}
       </div>
 
-      {/* All other projects — 3 col grid */}
-      <div ref={gridRef} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }} className="projects-grid">
+      {/* Projects grid — 3 col desktop, 2 col tablet, 1 col mobile */}
+      <div ref={gridRef} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "14px" }} className="projects-grid">
         {projects.map((p, i) => (
           <ProjectCard key={p.id} project={p} index={i} isVisible={gridVisible} />
         ))}
@@ -276,14 +291,14 @@ export default function Projects() {
 
       {/* GitHub CTA */}
       <div style={{
-        marginTop: "48px", display: "flex", justifyContent: "center",
+        marginTop: "40px", display: "flex", justifyContent: "center",
         opacity: gridVisible ? 1 : 0, transition: "opacity 0.6s ease 0.5s",
       }}>
         <a href="https://github.com/Tylerking406" target="_blank" rel="noopener noreferrer"
           style={{
             display: "flex", alignItems: "center", gap: "8px",
             color: "var(--text-muted)", textDecoration: "none",
-            fontFamily: "'Space Mono', monospace", fontSize: "0.72rem",
+            fontFamily: "'Space Mono', monospace", fontSize: "0.7rem",
             letterSpacing: "0.1em", transition: "color 0.2s",
             padding: "12px 24px", border: "1px solid var(--border)", borderRadius: "2px",
           }}
@@ -297,11 +312,15 @@ export default function Projects() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .featured-grid { grid-template-columns: 1fr !important; }
-          .projects-grid { grid-template-columns: 1fr 1fr !important; }
+        @media (max-width: 1024px) {
+          .projects-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+          .featured-grid { grid-template-columns: 1fr !important; }
+          .projects-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 500px) {
+          .featured-grid { grid-template-columns: 1fr !important; }
           .projects-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
