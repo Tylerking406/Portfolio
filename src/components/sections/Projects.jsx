@@ -95,25 +95,44 @@ function FeaturedCard({ project, index, isVisible }) {
 
         {/* Babina traffic stats */}
         {isBabina && project.stats && (
-          <div className="stats-grid" style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "12px",
+          <div style={{
             marginBottom: "20px",
             padding: "16px",
             background: "rgba(255,184,0,0.04)",
             border: "1px solid rgba(255,184,0,0.15)",
             borderRadius: "4px",
           }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px", gridColumn: "1/-1" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "12px" }}>
               <TrendingUp size={12} color="var(--accent-gold)" />
               <span className="font-mono" style={{ fontSize: "0.56rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--accent-gold)" }}>
                 Live Traffic — Last 30 Days
               </span>
             </div>
-            {project.stats.map((s) => (
-              <AnimatedStat key={s.label} value={s.value} label={s.label} isVisible={isVisible} />
-            ))}
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: "10px",
+            }}>
+              {project.stats.map((s) => (
+                <div key={s.label} style={{ minWidth: 0 }}>
+                  <p className="font-display" style={{
+                    fontSize: "clamp(14px, 2.5vw, 18px)",
+                    fontWeight: 800, color: "var(--accent-gold)",
+                    letterSpacing: "-0.02em", lineHeight: 1.2,
+                    overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+                  }}>
+                    {s.value}
+                  </p>
+                  <p className="font-mono" style={{
+                    fontSize: "0.56rem", color: "var(--text-muted)",
+                    letterSpacing: "0.08em", textTransform: "uppercase", marginTop: "3px",
+                    overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+                  }}>
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

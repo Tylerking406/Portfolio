@@ -133,7 +133,7 @@ export const featuredProjects = [
       { label: "Monthly Visits", value: "67k+" },
       { label: "Monthly Requests", value: "130k+" },
       { label: "Bandwidth / Month", value: "145 MB" },
-      { label: "Top Markets", value: "FR · US · NL · UK" },
+      { label: "Top Markets", value: "FR · US · NL" },
     ],
     stack: ["React", "Cloudflare", "Firebase"],
     status: "live",
